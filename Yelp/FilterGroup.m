@@ -7,6 +7,7 @@
 //
 
 #import "FilterGroup.h"
+#import "Filter.h"
 
 @implementation FilterGroup
 
@@ -30,8 +31,12 @@
     if (_isCollapsable) {
         _isCollapsed = !_isCollapsed;
         _selectedRow = selectedRow;
-    } else if (_isExpandable && (selectedRow > (_rowsWhenCollapsed - 1))) {
+    }
+    if (_isExpandable && _isCollapsed && (selectedRow > (_rowsWhenCollapsed - 1))) {
         _isCollapsed = NO;
+    } else {
+        Filter *filter = _filters[selectedRow];
+        filter.enabled = !filter.enabled;
     }
 }
 

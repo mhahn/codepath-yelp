@@ -71,8 +71,22 @@
 - (RACSignal *)fetchRestaurantsWithTerm:(NSString *)term {
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:@{@"term": term, @"location": @"San Francisco"}];
     for (FilterGroup *filterGroup in _filterGroups) {
-        Filter *filter = [filterGroup getCurrentSelection];
-        parameters[filterGroup.identifier] = filter.apiValue;
+        if (filterGroup.hasMany) {
+            NSArray *enabledFilters = [[NSArray alloc] init];
+            for (Filter *filter in filterGroup.filters) {
+                if (filter.enabled) {
+                    enabledFilters = [enabledFilters arrayByAddingObject:filter.apiValue];
+                }
+            }
+            if ([enabledFilters count]) {
+                parameters[filterGroup.identifier] = [enabledFilters componentsJoinedByString:@","];
+            }
+        } else {
+            Filter *filter = [filterGroup getCurrentSelection];
+            if (filter.enabled) {
+                parameters[filterGroup.identifier] = filter.apiValue;
+            }
+        }
     }
     NSLog(@"Search Parameters: %@", parameters);
     return [[_client fetchJSONFromURL:parameters] map:^(NSDictionary *json) {

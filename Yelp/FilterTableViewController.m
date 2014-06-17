@@ -9,6 +9,8 @@
 #import "FilterTableViewController.h"
 #import "FilterGroup.h"
 #import "Filter.h"
+#import "FilterTableViewCell.h"
+#import "SeeAllTableViewCell.h"
 #import "YelpManager.h"
 
 @interface FilterTableViewController ()
@@ -25,6 +27,11 @@
     self.title = @"Filters";
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    
+    UINib *filterCellNib = [UINib nibWithNibName:@"FilterTableViewCell" bundle:nil];
+    [self.tableView registerNib:filterCellNib forCellReuseIdentifier:@"FilterCell"];
+    UINib *seeAllNib = [UINib nibWithNibName:@"SeeAllTableViewCell" bundle:nil];
+    [self.tableView registerNib:seeAllNib forCellReuseIdentifier:@"SeeAllCell"];
     
 }
 
@@ -52,9 +59,6 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     
     // XXX clean this up so the filter value can export a view or something
     FilterGroup *filterGroup = [[YelpManager sharedManager] getFilterGroupForSection:indexPath.section];
@@ -66,13 +70,14 @@
     }
     
     if (filterGroup.isCollapsed && filterGroup.hasMany && (currentRow > (filterGroup.rowsWhenCollapsed - 1))) {
-        cell.textLabel.text = @"See All";
+        SeeAllTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SeeAllCell"];
+        return cell;
     } else {
-        Filter *filterValue = filterGroup.filters[currentRow];
-        cell.textLabel.text = [NSString stringWithFormat:@"%@", filterValue.label];
+        FilterTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FilterCell" forIndexPath:indexPath];
+        Filter *filter = filterGroup.filters[currentRow];
+        cell.filter = filter;
+        return cell;
     }
-    
-    return cell;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
