@@ -10,18 +10,18 @@
 
 #import <ReactiveCocoa.h>
 
-#import "Filter.h"
+#import "FilterGroup.h"
 #import "Restaurant.h"
 
 @interface YelpManager : NSObject
 
 @property (nonatomic, strong) NSString *currentSearchTerm;
 @property (nonatomic, strong) NSArray *currentRestaurants;
-@property (nonatomic, strong) NSArray *filters;
+@property (nonatomic, strong) NSArray *filterGroups;
 
 + (instancetype)sharedManager;
 
 - (RACSignal *)fetchRestaurantsWithTerm:(NSString *)term;
-- (Filter *)getFilterForSection:(int)section;
+- (FilterGroup *)getFilterGroupForSection:(int)section;
 
 @end

@@ -9,8 +9,8 @@
 #import <ReactiveCocoa.h>
 
 #import "Constants.h"
+#import "FilterGroup.h"
 #import "Filter.h"
-#import "FilterValue.h"
 #import "YelpClient.h"
 #import "YelpManager.h"
 
@@ -38,15 +38,25 @@
             NSLog(@"Error: %@", error);
         }];
         
+        NSArray *categoryFilters = [Filter buildFilterValuesWithArrayOfDictionaries:@[
+                                                                                      @{@"id": @"bakeries", @"enabled": @(NO), @"label": @"Bakeries", @"api_value": @"bakeries"},
+                                                                                      @{@"id": @"beer_and_wine", @"label": @"Beer, Wine & Spirits", @"api_value": @"beer_and_wine"},
+                                                                                      @{@"id": @"butcher", @"enabled": @(NO), @"label": @"Butcher", @"api_value": @"butcher"},
+                                                                                      @{@"id": @"coffee", @"enabled": @(NO), @"label": @"Coffee & Tea", @"api_value": @"coffee"},
+                                                                                      @{@"id": @"foodtrucks", @"enabled": @(NO), @"label": @"Food Trucks", @"api_value": @"foodtrucks"},
+                                                                                      ]];
+        
         // XXX come up with some better way for initing these
-        NSArray *sortByFilterValues = [FilterValue buildFilterValuesWithArrayOfDictionaries:@[
-                                                                                              @{@"id": @"best_match", @"enabled": @(NO), @"label": @"Best Match"},
-                                                                                              @{@"id": @"distance", @"enabled": @(NO), @"label": @"Distance"},
-                                                                                              @{@"id": @"rating", @"enabled": @(NO), @"label": @"Rating"},
-                                                                                              @{@"id": @"most_reviewed", @"enabled": @(NO), @"label": @"Most Reviewed"},
+        NSArray *sortByFilters = [Filter buildFilterValuesWithArrayOfDictionaries:@[
+                                                                                              @{@"id": @"best_match", @"enabled": @(NO), @"label": @"Best Match", @"api_value": @"0"},
+                                                                                              @{@"id": @"distance", @"enabled": @(NO), @"label": @"Distance", @"api_value": @"1"},
+                                                                                              @{@"id": @"rating", @"enabled": @(NO), @"label": @"Rating", @"api_value": @"2"},
                                                                                               ]
                                        ];
-        _filters = @[[[Filter alloc] initWithIdentifier:@"sort_by" label:@"Sort By" filterValues:sortByFilterValues isCollapsable:YES isCollapsed:YES selectedRow:0]];
+        _filterGroups = @[
+                          [[FilterGroup alloc] initWithIdentifier:@"sort" label:@"Sort By" filters:sortByFilters isCollapsable:YES isCollapsed:YES isExpandable:YES selectedRow:0 rowsWhenCollapsed:1 hasMany:NO],
+                          [[FilterGroup alloc] initWithIdentifier:@"category_filter" label:@"Categories" filters:categoryFilters isCollapsable:NO isCollapsed:YES isExpandable:YES selectedRow:0 rowsWhenCollapsed:2 hasMany:YES]
+                          ];
 
     }
     return self;
@@ -59,7 +69,12 @@
 }
 
 - (RACSignal *)fetchRestaurantsWithTerm:(NSString *)term {
-    NSDictionary *parameters = @{@"term": term, @"location": @"San Francisco"};
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:@{@"term": term, @"location": @"San Francisco"}];
+    for (FilterGroup *filterGroup in _filterGroups) {
+        Filter *filter = [filterGroup getCurrentSelection];
+        parameters[filterGroup.identifier] = filter.apiValue;
+    }
+    NSLog(@"Search Parameters: %@", parameters);
     return [[_client fetchJSONFromURL:parameters] map:^(NSDictionary *json) {
         NSError *jsonError = nil;
         NSArray *result = [MTLJSONAdapter modelsOfClass:[Restaurant class]
@@ -73,8 +88,8 @@
     }];
 }
 
-- (Filter *)getFilterForSection:(int)section {
-    return _filters[section];
+- (FilterGroup *)getFilterGroupForSection:(int)section {
+    return _filterGroups[section];
 }
 
 # pragma mark - Class Methods

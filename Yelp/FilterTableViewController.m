@@ -7,8 +7,8 @@
 //
 
 #import "FilterTableViewController.h"
+#import "FilterGroup.h"
 #import "Filter.h"
-#import "FilterValue.h"
 #import "YelpManager.h"
 
 @interface FilterTableViewController ()
@@ -37,16 +37,16 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [[[YelpManager sharedManager] filters] count];
+    return [[[YelpManager sharedManager] filterGroups] count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     int rows;
-    Filter *filter = [[YelpManager sharedManager] getFilterForSection:section];
-    if (filter.isCollapsable && filter.isCollapsed) {
-        rows = 1;
+    FilterGroup *filterGroup = [[YelpManager sharedManager] getFilterGroupForSection:section];
+    if (filterGroup.isExpandable && filterGroup.isCollapsed) {
+        rows = [filterGroup displayRowsWhenCollapsed];
     } else {
-        rows = [filter.filterValues count];
+        rows = [filterGroup.filters count];
     }
     return rows;
 }
@@ -57,20 +57,26 @@
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     
     // XXX clean this up so the filter value can export a view or something
-    Filter *filter = [[YelpManager sharedManager] getFilterForSection:indexPath.section];
+    FilterGroup *filterGroup = [[YelpManager sharedManager] getFilterGroupForSection:indexPath.section];
     int currentRow;
-    if (filter.isCollapsed) {
-        currentRow = filter.selectedRow;
+    if (filterGroup.isCollapsed && !(filterGroup.hasMany)) {
+        currentRow = filterGroup.selectedRow;
     } else {
         currentRow = indexPath.row;
     }
-    FilterValue *filterValue = filter.filterValues[currentRow];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@", filterValue.label];
+    
+    if (filterGroup.isCollapsed && filterGroup.hasMany && (currentRow > (filterGroup.rowsWhenCollapsed - 1))) {
+        cell.textLabel.text = @"See All";
+    } else {
+        Filter *filterValue = filterGroup.filters[currentRow];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@", filterValue.label];
+    }
+    
     return cell;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    Filter *filter = [[YelpManager sharedManager] getFilterForSection:section];
+    FilterGroup *filter = [[YelpManager sharedManager] getFilterGroupForSection:section];
     
     // XXX clean this up so we use a custom title view
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
@@ -88,8 +94,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    Filter *filter = [[YelpManager sharedManager] getFilterForSection:indexPath.section];
-    [filter toggleCollapsed:indexPath.row];
+    FilterGroup *filterGroup = [[YelpManager sharedManager] getFilterGroupForSection:indexPath.section];
+
+    [filterGroup toggleCollapsed:indexPath.row];
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 

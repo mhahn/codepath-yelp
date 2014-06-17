@@ -26,8 +26,8 @@
 		BFD8C8A6194ED543002AB6E1 /* YelpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD8C8A5194ED543002AB6E1 /* YelpManager.m */; };
 		BFD8C8AA1950029B002AB6E1 /* FilterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD8C8A81950029B002AB6E1 /* FilterTableViewController.m */; };
 		BFD8C8AB1950029B002AB6E1 /* FilterTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFD8C8A91950029B002AB6E1 /* FilterTableViewController.xib */; };
-		BFD8C8AF1950BD1C002AB6E1 /* Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD8C8AE1950BD1C002AB6E1 /* Filter.m */; };
-		BFD8C8B51950BE31002AB6E1 /* FilterValue.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD8C8B41950BE31002AB6E1 /* FilterValue.m */; };
+		BFD8C8AF1950BD1C002AB6E1 /* FilterGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD8C8AE1950BD1C002AB6E1 /* FilterGroup.m */; };
+		BFD8C8B51950BE31002AB6E1 /* Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD8C8B41950BE31002AB6E1 /* Filter.m */; };
 		BFE9E9CA194E3CF1003F9D8B /* ListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE9E9C8194E3CF1003F9D8B /* ListTableViewController.m */; };
 		BFE9E9CB194E3CF1003F9D8B /* ListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFE9E9C9194E3CF1003F9D8B /* ListTableViewController.xib */; };
 		BFE9E9D1194E3F80003F9D8B /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE9E9D0194E3F80003F9D8B /* Constants.m */; };
@@ -72,10 +72,10 @@
 		BFD8C8A71950029B002AB6E1 /* FilterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterTableViewController.h; sourceTree = "<group>"; };
 		BFD8C8A81950029B002AB6E1 /* FilterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterTableViewController.m; sourceTree = "<group>"; };
 		BFD8C8A91950029B002AB6E1 /* FilterTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterTableViewController.xib; sourceTree = "<group>"; };
-		BFD8C8AD1950BD1C002AB6E1 /* Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Filter.h; sourceTree = "<group>"; };
-		BFD8C8AE1950BD1C002AB6E1 /* Filter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Filter.m; sourceTree = "<group>"; };
-		BFD8C8B31950BE31002AB6E1 /* FilterValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterValue.h; sourceTree = "<group>"; };
-		BFD8C8B41950BE31002AB6E1 /* FilterValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterValue.m; sourceTree = "<group>"; };
+		BFD8C8AD1950BD1C002AB6E1 /* FilterGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterGroup.h; sourceTree = "<group>"; };
+		BFD8C8AE1950BD1C002AB6E1 /* FilterGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterGroup.m; sourceTree = "<group>"; };
+		BFD8C8B31950BE31002AB6E1 /* Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Filter.h; sourceTree = "<group>"; };
+		BFD8C8B41950BE31002AB6E1 /* Filter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Filter.m; sourceTree = "<group>"; };
 		BFE9E9C7194E3CF1003F9D8B /* ListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListTableViewController.h; sourceTree = "<group>"; };
 		BFE9E9C8194E3CF1003F9D8B /* ListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListTableViewController.m; sourceTree = "<group>"; };
 		BFE9E9C9194E3CF1003F9D8B /* ListTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListTableViewController.xib; sourceTree = "<group>"; };
@@ -219,10 +219,10 @@
 		BFD8C8AC1950BD09002AB6E1 /* Filters */ = {
 			isa = PBXGroup;
 			children = (
-				BFD8C8AD1950BD1C002AB6E1 /* Filter.h */,
-				BFD8C8AE1950BD1C002AB6E1 /* Filter.m */,
-				BFD8C8B31950BE31002AB6E1 /* FilterValue.h */,
-				BFD8C8B41950BE31002AB6E1 /* FilterValue.m */,
+				BFD8C8AD1950BD1C002AB6E1 /* FilterGroup.h */,
+				BFD8C8AE1950BD1C002AB6E1 /* FilterGroup.m */,
+				BFD8C8B31950BE31002AB6E1 /* Filter.h */,
+				BFD8C8B41950BE31002AB6E1 /* Filter.m */,
 			);
 			name = Filters;
 			sourceTree = "<group>";
@@ -371,7 +371,7 @@
 			files = (
 				BF5B53C6194DEEE700B2A20A /* AppDelegate.m in Sources */,
 				BF5B53C2194DEEE700B2A20A /* main.m in Sources */,
-				BFD8C8B51950BE31002AB6E1 /* FilterValue.m in Sources */,
+				BFD8C8B51950BE31002AB6E1 /* Filter.m in Sources */,
 				BFD8C89F194E5DDB002AB6E1 /* RestaurantTableViewCell.m in Sources */,
 				BF690376194DF00600A16B57 /* YelpClient.m in Sources */,
 				BFE9E9CA194E3CF1003F9D8B /* ListTableViewController.m in Sources */,
@@ -379,7 +379,7 @@
 				BFD8C8AA1950029B002AB6E1 /* FilterTableViewController.m in Sources */,
 				BFE9E9D5194E4226003F9D8B /* Restaurant.m in Sources */,
 				BFE9E9D1194E3F80003F9D8B /* Constants.m in Sources */,
-				BFD8C8AF1950BD1C002AB6E1 /* Filter.m in Sources */,
+				BFD8C8AF1950BD1C002AB6E1 /* FilterGroup.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

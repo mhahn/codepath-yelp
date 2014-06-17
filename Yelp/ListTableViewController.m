@@ -16,6 +16,7 @@
 
 @interface ListTableViewController () {
     NSArray *restaurants;
+    UISearchBar *searchBar;
 }
 
 @end
@@ -24,11 +25,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // XXX pull this from the search bar
-    [[YelpManager sharedManager] setCurrentSearchTerm:@"Thai"];
+    // XXX should this be defaulting to something at first?
     
     // configure the search bar
-    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
+    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
     searchBar.delegate = self;
     // XXX why is this flashing?
     self.navigationItem.titleView = searchBar;
@@ -71,6 +71,13 @@
     RestaurantTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RestaurantCell" forIndexPath:indexPath];
     cell.restaurant = restaurants[indexPath.row];
     return cell;
+    
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    [[YelpManager sharedManager] setCurrentSearchTerm:searchBar.text];
+    
+}
 @end
