@@ -9,6 +9,8 @@
 #import <ReactiveCocoa.h>
 
 #import "Constants.h"
+#import "Filter.h"
+#import "FilterValue.h"
 #import "YelpClient.h"
 #import "YelpManager.h"
 
@@ -35,6 +37,17 @@
         }] deliverOn:[RACScheduler mainThreadScheduler]] subscribeError:^(NSError *error) {
             NSLog(@"Error: %@", error);
         }];
+        
+        // XXX come up with some better way for initing these
+        NSArray *sortByFilterValues = [FilterValue buildFilterValuesWithArrayOfDictionaries:@[
+                                                                                              @{@"id": @"best_match", @"enabled": @(NO), @"label": @"Best Match"},
+                                                                                              @{@"id": @"distance", @"enabled": @(NO), @"label": @"Distance"},
+                                                                                              @{@"id": @"rating", @"enabled": @(NO), @"label": @"Rating"},
+                                                                                              @{@"id": @"most_reviewed", @"enabled": @(NO), @"label": @"Most Reviewed"},
+                                                                                              ]
+                                       ];
+        _filters = @[[[Filter alloc] initWithIdentifier:@"sort_by" label:@"Sort By" filterValues:sortByFilterValues isCollapsable:YES isCollapsed:YES selectedRow:0]];
+
     }
     return self;
 }
@@ -58,6 +71,10 @@
         
         return result;
     }];
+}
+
+- (Filter *)getFilterForSection:(int)section {
+    return _filters[section];
 }
 
 # pragma mark - Class Methods
