@@ -29,8 +29,6 @@ Walkthrough of all user stories:
 
 ![Video Walkthrough]()
 
-GIF created with [LiceCap](http://www.cockos.com/licecap/).
-
 *Notes:*
 
 I had a really hard time with the autolayout. If there are any resources you can point me to I would love to read up on it more. I spent several hours trying to understand how to get the text to wrap properly.
