@@ -27,7 +27,7 @@ Time spent: 18 hours
 
 Walkthrough of all user stories:
 
-![Video Walkthrough]()
+![Video Walkthrough](yelp.gif)
 
 *Notes:*
 
