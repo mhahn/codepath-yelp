@@ -13,18 +13,27 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VzG-pF-tgE">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VzG-pF-tgE">
                         <rect key="frame" x="10" y="12" width="186" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rjS-FZ-AzT">
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rjS-FZ-AzT">
                         <rect key="frame" x="262" y="6" width="51" height="31"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </switch>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="VzG-pF-tgE" secondAttribute="bottom" constant="10" id="9WF-fQ-vXf"/>
+                    <constraint firstAttribute="trailing" secondItem="rjS-FZ-AzT" secondAttribute="trailing" constant="9" id="Etp-u6-Mjk"/>
+                    <constraint firstItem="rjS-FZ-AzT" firstAttribute="leading" secondItem="VzG-pF-tgE" secondAttribute="trailing" constant="66" id="Nau-E8-T5W"/>
+                    <constraint firstItem="rjS-FZ-AzT" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="d5A-kE-rw1"/>
+                    <constraint firstItem="VzG-pF-tgE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="kJe-Z0-qFi"/>
+                    <constraint firstItem="VzG-pF-tgE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="pLm-Se-afC"/>
+                    <constraint firstAttribute="bottom" secondItem="rjS-FZ-AzT" secondAttribute="bottom" constant="6" id="zpG-0Y-7Ul"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="filterEnabled" destination="rjS-FZ-AzT" id="CFc-Az-dWu"/>

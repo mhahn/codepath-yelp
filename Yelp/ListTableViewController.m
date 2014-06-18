@@ -17,6 +17,7 @@
 @interface ListTableViewController () {
     NSArray *restaurants;
     UISearchBar *searchBar;
+    RestaurantTableViewCell *cellPrototype;
 }
 
 @end
@@ -30,6 +31,8 @@
     // configure the search bar
     searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
     searchBar.delegate = self;
+    [searchBar setBarTintColor:[UIColor redColor]];
+    [searchBar setTintColor:[UIColor blackColor]];
     // XXX why is this flashing?
     self.navigationItem.titleView = searchBar;
     // XXX check out the delegate protocol and listen for text did change to update the view when the user types in their selection.
@@ -49,6 +52,10 @@
     UINib *restaurantCellNib = [UINib nibWithNibName:@"RestaurantTableViewCell" bundle:nil];
     [self.tableView registerNib:restaurantCellNib forCellReuseIdentifier:@"RestaurantCell"];
     
+    // create a prototype cell for configuring dynamic size
+    cellPrototype = [restaurantCellNib instantiateWithOwner:nil options:nil][0];
+    
+    [[YelpManager sharedManager] setCurrentSearchTerm:searchBar.text];
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
@@ -74,10 +81,11 @@
     
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    
-    [super viewWillAppear:animated];
-    [[YelpManager sharedManager] setCurrentSearchTerm:searchBar.text];
-    
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    cellPrototype.restaurant = restaurants[indexPath.row];
+//    [cellPrototype layoutSubviews];
+//    CGSize size = [cellPrototype.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+//    return size.height + 1.0f;
+//}
+
 @end

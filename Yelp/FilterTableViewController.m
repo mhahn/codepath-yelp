@@ -10,12 +10,14 @@
 #import "FilterGroup.h"
 #import "Filter.h"
 #import "FilterTableViewCell.h"
+#import "ListTableViewController.h"
 #import "SeeAllTableViewCell.h"
 #import "YelpManager.h"
 
 @interface FilterTableViewController ()
 
 @property (strong, nonatomic) IBOutlet UITableView *filterView;
+- (void)filterSearch;
 
 @end
 
@@ -27,6 +29,8 @@
     self.title = @"Filters";
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStyleDone target:self action:@selector(filterSearch)];
     
     UINib *filterCellNib = [UINib nibWithNibName:@"FilterTableViewCell" bundle:nil];
     [self.tableView registerNib:filterCellNib forCellReuseIdentifier:@"FilterCell"];
@@ -94,6 +98,11 @@
 
     [filterGroup toggleCollapsed:indexPath.row];
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)filterSearch {
+    ListTableViewController *vc = [[ListTableViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end
