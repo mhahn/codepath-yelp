@@ -92,11 +92,11 @@
     
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    cellPrototype.restaurant = restaurants[indexPath.row];
-//    [cellPrototype layoutSubviews];
-//    CGSize size = [cellPrototype.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-//    return size.height + 1.0f;
-//}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    cellPrototype.restaurant = restaurants[indexPath.row];
+    [cellPrototype layoutIfNeeded];
+    CGSize size = [cellPrototype.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    return size.height + 1.0f;
+}
 
 @end
