@@ -20,6 +20,8 @@
     RestaurantTableViewCell *cellPrototype;
 }
 
+- (void)dismissKeyboard;
+
 @end
 
 @implementation ListTableViewController
@@ -56,10 +58,19 @@
     cellPrototype = [restaurantCellNib instantiateWithOwner:nil options:nil][0];
     
     [[YelpManager sharedManager] setCurrentSearchTerm:searchBar.text];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                   initWithTarget:self
+                                   action:@selector(dismissKeyboard)];
+    [self.view addGestureRecognizer:tap];
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     [[YelpManager sharedManager] setCurrentSearchTerm:searchText];
+}
+
+- (void)dismissKeyboard {
+    [searchBar resignFirstResponder];
 }
 
 - (void)expandFilterView {
