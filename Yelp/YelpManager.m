@@ -45,6 +45,16 @@
                                                                                       @{@"id": @"coffee", @"enabled": @(NO), @"label": @"Coffee & Tea", @"api_value": @"coffee"},
                                                                                       @{@"id": @"foodtrucks", @"enabled": @(NO), @"label": @"Food Trucks", @"api_value": @"foodtrucks"},
                                                                                       ]];
+        NSArray *radiusFilters = [Filter buildFilterValuesWithArrayOfDictionaries:@[
+                                                                                    @{@"id": @"2_blocks", @"enabled": @(NO), @"label": @"2 blocks", @"api_value": @"160"},
+                                                                                    @{@"id": @"6_blocks", @"enabled": @(NO), @"label": @"6 blocks", @"api_value": @"480"},
+                                                                                    @{@"id": @"1_miles", @"enabled": @(NO), @"label": @"1 mile", @"api_value": @"1609"},
+                                                                                    @{@"id": @"5_miles", @"enabled": @(NO), @"label": @"5 miles", @"api_value": @"8046"},
+                                                                                    ]];
+        
+        NSArray *otherFilters = [Filter buildFilterValuesWithArrayOfDictionaries:@[
+                                                                                   @{@"id": @"deals", @"enabled": @(NO), @"label": @"Deals", @"api_value": @"1"},
+                                                                                   ]];
         
         // XXX come up with some better way for initing these
         NSArray *sortByFilters = [Filter buildFilterValuesWithArrayOfDictionaries:@[
@@ -55,7 +65,9 @@
                                        ];
         _filterGroups = @[
                           [[FilterGroup alloc] initWithIdentifier:@"sort" label:@"Sort By" filters:sortByFilters isCollapsable:YES isCollapsed:YES isExpandable:YES selectedRow:0 rowsWhenCollapsed:1 hasMany:NO],
-                          [[FilterGroup alloc] initWithIdentifier:@"category_filter" label:@"Categories" filters:categoryFilters isCollapsable:NO isCollapsed:YES isExpandable:YES selectedRow:0 rowsWhenCollapsed:2 hasMany:YES]
+                          [[FilterGroup alloc] initWithIdentifier:@"radius_filter" label:@"Distance" filters:radiusFilters isCollapsable:YES isCollapsed:YES isExpandable:YES selectedRow:0 rowsWhenCollapsed:1 hasMany:NO],
+                          [[FilterGroup alloc] initWithIdentifier:@"deals_filter" label:@"General Features" filters:otherFilters isCollapsable:NO isCollapsed:NO isExpandable:NO selectedRow:0 rowsWhenCollapsed:1 hasMany:YES],
+                          [[FilterGroup alloc] initWithIdentifier:@"category_filter" label:@"Categories" filters:categoryFilters isCollapsable:NO isCollapsed:YES isExpandable:YES selectedRow:0 rowsWhenCollapsed:2 hasMany:YES],
                           ];
 
     }

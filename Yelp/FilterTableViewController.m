@@ -80,18 +80,9 @@
     }
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     FilterGroup *filter = [[YelpManager sharedManager] getFilterGroupForSection:section];
-    
-    // XXX clean this up so we use a custom title view
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
-    view.backgroundColor = [UIColor blackColor];
-    UILabel *viewTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 30)];
-    viewTitle.text = filter.label;
-    viewTitle.textColor = [UIColor whiteColor];
-    [view addSubview:viewTitle];
-    
-    return view;
+    return filter.label;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

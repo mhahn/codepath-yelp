@@ -29,12 +29,21 @@
 
 - (void)toggleCollapsed:(int)selectedRow {
     if (_isCollapsable) {
+        if (!_isCollapsed) {
+            // XXX clean this up
+            // disable all other filters
+            for (Filter *filter in _filters) {
+                filter.enabled = NO;
+            }
+            Filter *filter = _filters[selectedRow];
+            filter.enabled = YES;
+        }
         _isCollapsed = !_isCollapsed;
         _selectedRow = selectedRow;
     }
-    if (_isExpandable && _isCollapsed && (selectedRow > (_rowsWhenCollapsed - 1))) {
+    if (_isExpandable && !_isCollapsable && _isCollapsed && (selectedRow > (_rowsWhenCollapsed - 1))) {
         _isCollapsed = NO;
-    } else {
+    } else if (!_isCollapsable) {
         Filter *filter = _filters[selectedRow];
         filter.enabled = !filter.enabled;
     }
