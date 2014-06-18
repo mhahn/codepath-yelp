@@ -17,8 +17,9 @@
 @interface ListTableViewController () {
     NSArray *restaurants;
     UISearchBar *searchBar;
-    RestaurantTableViewCell *cellPrototype;
 }
+
+@property (nonatomic, strong) RestaurantTableViewCell *prototypeCell;
 
 - (void)dismissKeyboard;
 
@@ -53,9 +54,6 @@
     self.tableView.dataSource = self;
     UINib *restaurantCellNib = [UINib nibWithNibName:@"RestaurantTableViewCell" bundle:nil];
     [self.tableView registerNib:restaurantCellNib forCellReuseIdentifier:@"RestaurantCell"];
-    
-    // create a prototype cell for configuring dynamic size
-    cellPrototype = [restaurantCellNib instantiateWithOwner:nil options:nil][0];
     
     [[YelpManager sharedManager] setCurrentSearchTerm:searchBar.text];
     
@@ -93,10 +91,22 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    cellPrototype.restaurant = restaurants[indexPath.row];
-    [cellPrototype layoutIfNeeded];
-    CGSize size = [cellPrototype.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    self.prototypeCell.restaurant = restaurants[indexPath.row];
+    [self.prototypeCell layoutIfNeeded];
+    CGSize size = [self.prototypeCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    NSLog(@"Height: %f", size.height);
     return size.height + 1.0f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewAutomaticDimension;
+}
+
+- (RestaurantTableViewCell *)prototypeCell {
+    if (!_prototypeCell) {
+        _prototypeCell = [self.tableView dequeueReusableCellWithIdentifier:@"RestaurantCell"];
+    }
+    return _prototypeCell;
 }
 
 @end
