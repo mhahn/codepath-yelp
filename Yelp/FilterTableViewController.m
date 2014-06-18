@@ -18,6 +18,7 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *filterView;
 - (void)filterSearch;
+- (void)cancelSearch;
 
 @end
 
@@ -30,7 +31,8 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStyleDone target:self action:@selector(filterSearch)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Search" style:UIBarButtonItemStyleDone target:self action:@selector(filterSearch)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleDone target:self action:@selector(cancelSearch)];
     
     UINib *filterCellNib = [UINib nibWithNibName:@"FilterTableViewCell" bundle:nil];
     [self.tableView registerNib:filterCellNib forCellReuseIdentifier:@"FilterCell"];
@@ -103,6 +105,10 @@
 - (void)filterSearch {
     ListTableViewController *vc = [[ListTableViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)cancelSearch {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end
