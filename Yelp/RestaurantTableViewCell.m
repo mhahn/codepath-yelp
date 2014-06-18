@@ -7,6 +7,7 @@
 //
 
 #import "RestaurantTableViewCell.h"
+#import "UIImageView+MHNetworking.h"
 
 @interface RestaurantTableViewCell()
 
@@ -49,6 +50,8 @@
     self.reviewsLabel.text = [[NSString alloc] initWithFormat:@"%d reviews", _restaurant.reviewCount];
     self.addressLabel.text = _restaurant.displayAddress;
     self.categoriesLabel.text = _restaurant.categories;
+    [self.restaurantImageView setImageWithURL:_restaurant.imageURL withAnimationDuration:0.5];
+    [self.ratingImageView setImageWithURL:_restaurant.ratingImageURL withAnimationDuration:0.5];
 }
 
 @end

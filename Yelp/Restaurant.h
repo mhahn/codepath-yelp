@@ -12,7 +12,7 @@
 
 @property (nonatomic, strong) NSString *categories;
 @property (nonatomic, strong) NSString *displayPhone;
-@property (nonatomic, strong) NSURL *imageUrl;
+@property (nonatomic, strong) NSURL *imageURL;
 @property (nonatomic) BOOL isClosed;
 @property (nonatomic, strong) NSString *displayAddress;
 @property (nonatomic, strong) NSString *name;

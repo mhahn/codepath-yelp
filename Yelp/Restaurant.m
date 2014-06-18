@@ -13,7 +13,7 @@
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{
              @"displayPhone": @"display_phone",
-             @"imageUrl": @"image_url",
+             @"imageURL": @"image_url",
              @"isClosed": @"is_closed",
              @"displayAddress": @"location.display_address",
              @"ratingImageURL": @"rating_img_url",
